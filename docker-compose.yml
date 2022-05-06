@@ -1,0 +1,22 @@
+version: "3.8"
+
+services:
+  structurizr:
+    image: structurizr/lite
+    volumes:
+      - "stuff:/usr/local/structurizr"
+    ports:
+      - "8080:8080"
+  
+  handler:
+    image: alpine/git
+    volumes:
+      - "stuff:/usr/local/structurizr"
+      - "$HOME/.ssh:/root/.ssh"
+      - "./handler.sh:/root/handler.sh"
+    ports:
+      - "9000:9000"
+    entrypoint: "/root/handler.sh"
+
+volumes:
+  stuff:
