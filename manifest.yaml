@@ -8,10 +8,6 @@ spec:
   volumes:
     - name: structurizr-data
       emptyDir: {}
-    - name: ssh-key
-      secret:
-        secretName: ssh-key
-        optional: false
 
   containers:
     - name: structurizr
@@ -26,5 +22,10 @@ spec:
       volumeMounts:
         - name: structurizr-data
           mountPath: /usr/local/structurizr
-        - name: ssh-key
-          mountPath: /root/.ssh
+      env:
+        - name: GITHUB_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: github-token
+              key: github-token
+              optional: false

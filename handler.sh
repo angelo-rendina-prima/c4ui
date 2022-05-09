@@ -1,11 +1,14 @@
 #! /bin/sh
 set -ex
 
-git clone git@github.com:angelo-rendina-prima/structurizr.git /tmp/docs
-rm -rf /usr/local/structurizr/docs
-mv /tmp/docs /usr/local/structurizr
-echo "!include docs/workspace.dsl" > /usr/local/structurizr/workspace.dsl
-cd /usr/local/structurizr/docs
+STRUCTURIZR_DIR="/usr/local/structurizr"
+TMP_DIR="/tmp/docs"
+
+git clone "https://${GITHUB_TOKEN}@github.com/angelo-rendina-prima/structurizr.git" $TMP_DIR
+rm -rf ${STRUCTURIZR_DIR}/docs
+mv $TMP_DIR $STRUCTURIZR_DIR
+echo "!include docs/workspace.dsl" > ${STRUCTURIZR_DIR}/workspace.dsl
+cd ${STRUCTURIZR_DIR}/docs
 
 while true; do
     sleep 5
