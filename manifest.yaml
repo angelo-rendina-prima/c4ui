@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: c4ui
+spec:
+  restartPolicy: Never
+
+  volumes:
+    - name: structurizr-data
+      emptyDir: {}
+    - name: ssh-key
+      secret:
+        secretName: ssh-key
+        optional: false
+
+  containers:
+    - name: structurizr
+      image: structurizr/lite
+      volumeMounts:
+        - name: structurizr-data
+          mountPath: /usr/local/structurizr
+
+    - name: handler
+      image: handler
+      imagePullPolicy: Never
+      volumeMounts:
+        - name: structurizr-data
+          mountPath: /usr/local/structurizr
+        - name: ssh-key
+          mountPath: /root/.ssh
