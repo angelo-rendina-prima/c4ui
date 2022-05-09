@@ -11,6 +11,6 @@ echo "!include docs/workspace.dsl" > ${STRUCTURIZR_DIR}/workspace.dsl
 cd ${STRUCTURIZR_DIR}/docs
 
 while true; do
-    sleep 5
+    echo -e "HTTP/1.0 200 OK" | nc -l -p 9000
     git pull
 done

@@ -9,7 +9,7 @@ services:
       - "8080:8080"
   
   handler:
-    image: alpine/git
+    build: .
     volumes:
       - "stuff:/usr/local/structurizr"
       - "$HOME/.ssh:/root/.ssh"
@@ -17,6 +17,8 @@ services:
     ports:
       - "9000:9000"
     entrypoint: "/root/handler.sh"
+    env_file:
+      - .env
 
 volumes:
   stuff:
